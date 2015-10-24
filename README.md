@@ -371,7 +371,7 @@ Nginx
 
 ## Sreenshots
 
-<center>
+<center><p align="center">
 
 ![Alt text](/Screenshots/admin_login.png?raw=true "Admin Login")
 
@@ -385,7 +385,7 @@ Nginx
 
 ![Alt text](/Screenshots/cms-system-monitor-fa.png?raw=true "Farsi System Monitor")
 
-</center>
+</p></center>
 
 More screenshots to come, as it makes progress.
 
