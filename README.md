@@ -371,8 +371,12 @@ Nginx
 
 ## Sreenshots
 
+<center>
+
 ![Alt text](/Screenshots/admin_login.png?raw=true "Admin Login")
+
 ![Alt text](/Screenshots/admin-login-resonsive.png?raw=true "Admin Login (Responsive)")
+
 ![Alt text](/Screenshots/admin-login-recover-password-fa.png?raw=true "Farsi Admin Login, Recover Password")
 
 ![Alt text](/Screenshots/cms-system-monitor-1.png?raw=true "System Monitor")
@@ -381,6 +385,8 @@ Nginx
 
 ![Alt text](/Screenshots/cms-system-monitor-fa.png?raw=true "Farsi System Monitor")
 
-More screenshots to come, as it make progress.
+</center>
+
+More screenshots to come, as it makes progress.
 
 
