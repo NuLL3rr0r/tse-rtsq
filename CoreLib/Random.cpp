@@ -68,18 +68,6 @@ void Random::Characters(const Character &type, const size_t length, std::string 
     for (size_t i = 0; i < length; ++i) {
         out_chars += s_pimpl->LookupTable[type][(size_t)index_dist(rng)];
     }
-
-    /// Alternative pure std version
-    /// requires cstdlib and System.hpp headers
-    /*
-    std::srand((unsigned int)System::RandSeed());
-
-    out_chars.clear();
-    for (size_t i = 0; i < length; ++i) {
-        out_chars += s_pimpl->LookupTable[type].at(
-                    (unsigned long)rand() % (s_pimpl->LookupTable[type].size() - 1));
-    }
-    */
 }
 
 std::string Random::Characters(const Character &type, const size_t length)
