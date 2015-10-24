@@ -371,29 +371,15 @@ Nginx
 
 ## Sreenshots
 
-<p align="center">
 ![Alt text](/Screenshots/admin_login.png?raw=true "Admin Login")
-</p>
-
-<p align="center">
 ![Alt text](/Screenshots/admin-login-resonsive.png?raw=true "Admin Login (Responsive)")
-</p>
-
-<p align="center">
 ![Alt text](/Screenshots/admin-login-recover-password-fa.png?raw=true "Farsi Admin Login, Recover Password")
-</p>
 
-<p align="center">
 ![Alt text](/Screenshots/cms-system-monitor-1.png?raw=true "System Monitor")
-</p>
 
-<p align="center">
 ![Alt text](/Screenshots/cms-system-monitor-2.png?raw=true "System Monitor")
-</p>
 
-<p align="center">
 ![Alt text](/Screenshots/cms-system-monitor-fa.png?raw=true "Farsi System Monitor")
-</p>
 
 More screenshots to come, as it makes progress.
 
