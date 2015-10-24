@@ -34,4 +34,6 @@
  * Qt Creator pickup the header file by the same name.
  */
 
+#include "VersionInfo.hpp"
+
 
