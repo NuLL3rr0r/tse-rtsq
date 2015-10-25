@@ -42,6 +42,13 @@
     <message id="cms-dashboard-system-monitor">وضعیت سیستم</message>
     <message id="cms-dashboard-switch-language">English</message>
     <message id="cms-dashboard-exit">خروج</message>
+    <message id="cms-dashboard-welcome-message">خوش آمدید!</message>
+    <message id="cms-dashboard-last-login-info-title">آخرین ورود</message>
+    <message id="cms-dashboard-last-login-info-ip">شناسه اینترنتی</message>
+    <message id="cms-dashboard-last-login-info-location">مکان</message>
+    <message id="cms-dashboard-last-login-info-user-agent">شناسه مرورگر</message>
+    <message id="cms-dashboard-last-login-info-referer">ارجاع دهنده</message>
+    <message id="cms-dashboard-last-login-info-time">زمان</message>
     <message id="system-monitor-cpu-percents">CPU Percents</message>
     <message id="system-monitor-cpu-percents-user">User</message>
     <message id="system-monitor-cpu-percents-kernel">Kernel</message>

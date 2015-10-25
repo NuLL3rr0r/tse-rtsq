@@ -42,6 +42,13 @@
     <message id="cms-dashboard-system-monitor">System Monitor</message>
     <message id="cms-dashboard-switch-language">فارسی</message>
     <message id="cms-dashboard-exit">Exit</message>
+    <message id="cms-dashboard-welcome-message">W E L C O M E !!</message>
+    <message id="cms-dashboard-last-login-info-title">Last Login</message>
+    <message id="cms-dashboard-last-login-info-ip">IP</message>
+    <message id="cms-dashboard-last-login-info-location">Location</message>
+    <message id="cms-dashboard-last-login-info-user-agent">User Agent</message>
+    <message id="cms-dashboard-last-login-info-referer">Referer</message>
+    <message id="cms-dashboard-last-login-info-time">Time</message>
     <message id="system-monitor-cpu-percents">CPU Percents</message>
     <message id="system-monitor-cpu-percents-user">User</message>
     <message id="system-monitor-cpu-percents-kernel">Kernel</message>

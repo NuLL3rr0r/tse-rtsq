@@ -33,11 +33,24 @@
  */
 
 
+#include <Wt/WString>
+#include <Wt/WTemplate>
+#include <Wt/WText>
+#include <Wt/WWidget>
+#include <boost/exception/diagnostic_information.hpp>
+#include <boost/format.hpp>
+#include <CoreLib/FileSystem.hpp>
+#include <CoreLib/Log.hpp>
+#include "CgiEnv.hpp"
 #include "CmsDashboard.hpp"
 #include "Div.hpp"
+#include "Pool.hpp"
+
+#define         UNKNOWN_ERROR       "Unknown error!"
 
 using namespace std;
 using namespace Wt;
+using namespace CoreLib;
 using namespace Website;
 
 struct CmsDashboard::Impl : public Wt::WObject
@@ -63,9 +76,53 @@ CmsDashboard::CmsDashboard(CgiRoot *cgi) :
 
 WWidget *CmsDashboard::Layout()
 {
+    LOG_DEBUG(11111111111);
     Div *container = new Div("CmsDashboard", "container");
 
+    try {
+        std::string htmlData;
+        std::string file;
+        if (m_cgiEnv->GetCurrentLanguage() == CgiEnv::Language::Fa) {
+            file = "../templates/cms-dashboard-fa.wtml";
+        } else {
+            file = "../templates/cms-dashboard.wtml";
+        }
 
+        if (CoreLib::FileSystem::Read(file, htmlData)) {
+            /// Fill the template
+            WTemplate *tmpl = new WTemplate(container);
+            tmpl->setTemplateText(WString(htmlData), TextFormat::XHTMLUnsafeText);
+
+            tmpl->bindWidget("welcome-message", new WText(tr("cms-dashboard-welcome-message")));
+
+            tmpl->bindWidget("last-login-title", new WText(tr("cms-dashboard-last-login-info-title")));
+            tmpl->bindWidget("last-login-ip-label", new WText(tr("cms-dashboard-last-login-info-ip")));
+            tmpl->bindWidget("last-login-location-label", new WText(tr("cms-dashboard-last-login-info-location")));
+            tmpl->bindWidget("last-login-user-agent-label", new WText(tr("cms-dashboard-last-login-info-user-agent")));
+            tmpl->bindWidget("last-login-referer-label", new WText(tr("cms-dashboard-last-login-info-referer")));
+            tmpl->bindWidget("last-login-time-label", new WText(tr("cms-dashboard-last-login-info-time")));
+
+            tmpl->bindWidget("last-login-ip", new WText(WString::fromUTF8(m_cgiEnv->SignedInUser.LastLogin.IP)));
+            tmpl->bindWidget("last-login-location", new WText(WString::fromUTF8(m_cgiEnv->SignedInUser.LastLogin.Location)));
+            tmpl->bindWidget("last-login-user-agent", new WText(WString::fromUTF8(m_cgiEnv->SignedInUser.LastLogin.UserAgent)));
+            tmpl->bindWidget("last-login-referer", new WText(WString::fromUTF8(m_cgiEnv->SignedInUser.LastLogin.Referer)));
+            tmpl->bindWidget("last-login-time-gdate", new WText(WString::fromUTF8(m_cgiEnv->SignedInUser.LastLogin.LoginGDate)));
+            tmpl->bindWidget("last-login-time-jdate", new WText(WString::fromUTF8(m_cgiEnv->SignedInUser.LastLogin.LoginJDate)));
+            tmpl->bindWidget("last-login-time", new WText(WString::fromUTF8(m_cgiEnv->SignedInUser.LastLogin.LoginTime)));
+        }
+    }
+
+    catch (boost::exception &ex) {
+        LOG_ERROR(boost::diagnostic_information(ex));
+    }
+
+    catch (std::exception &ex) {
+        LOG_ERROR(ex.what());
+    }
+
+    catch (...) {
+        LOG_ERROR(UNKNOWN_ERROR);
+    }
 
     return container;
 }

@@ -103,15 +103,20 @@ CgiEnv::CgiEnv(const WEnvironment &env) :
     m_pimpl->ExtractClientInfoDetail();
 
     m_pimpl->ClientInfoLocation =
-            (boost::format("%1% %2% %3% %4% %5% %6% %7%,%8%")
+            (boost::format("%1% %2% %3% %4% %5% %6%")
              % ClientInfoRecord.city
              % ClientInfoRecord.region
              % ClientInfoRecord.country_code
              % ClientInfoRecord.country_code3
              % ClientInfoRecord.country_name
-             % ClientInfoRecord.continent_code
-             % ClientInfoRecord.latitude
-             % ClientInfoRecord.longitude).str();
+             % ClientInfoRecord.continent_code).str();
+    if (ClientInfoRecord.latitude != "" && ClientInfoRecord.longitude != "") {
+        m_pimpl->ClientInfoLocation +=
+                (boost::format("%1%,%2%")
+                 % ClientInfoRecord.latitude
+                 % ClientInfoRecord.longitude).str();
+    }
+    boost::trim(m_pimpl->ClientInfoLocation);
 
     m_pimpl->ServerInfoHost = env.hostName();
     m_pimpl->ServerInfoURL = env.urlScheme() + "://" + m_pimpl->ServerInfoHost;

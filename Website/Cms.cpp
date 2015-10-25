@@ -160,7 +160,7 @@ WWidget *Cms::Layout()
         tmpl->bindWidget("exit", exit);
 
         m_pimpl->Contents = new Wt::WStackedWidget();
-        m_pimpl->Contents->addWidget(new WText(""));
+        m_pimpl->Contents->addWidget(new CmsDashboard(m_cgiRoot));
         m_pimpl->Contents->addWidget(new CmsNews(m_cgiRoot));
         m_pimpl->Contents->addWidget(new CmsPageManager(m_cgiRoot));
         m_pimpl->Contents->addWidget(new CmsContacts(m_cgiRoot));
