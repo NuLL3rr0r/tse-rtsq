@@ -34,6 +34,7 @@ More comes when it's ready.
 ## Dependencies
 
 * C++11 is the minimum required version of C++
+* Bootsrap 3.x (Included)
 * Boost (bzip2, date_time, filesystem, iostreams, random, regex, system, thread, zlib)
 * CMake (Ninja, BSD Make and GNU Make are supported)
 * CppDB
@@ -42,6 +43,7 @@ More comes when it's ready.
 * GeoIP
 * Git (Optional, Required by CMake during the build process)
 * Gulp (Upon finding Gulp automatically installs: autoprefixer, minify-html, imagemin, minify-css, sass, uglify)
+* jQuery (Included)
 * libb64
 * libcurl
 * libstatgrab >= 0.90+
