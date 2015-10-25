@@ -1,11 +1,11 @@
-<div class="text-center">
+<div class="dashboard-contents text-center">
     <div class="text-center">
         <h3>${welcome-message}</h3>
     </div>
 
     <br />
 
-    <div class="last-login-info col-xs-12 col-md-6 col-md-offset-3">
+    <div class="col-xs-12 col-md-6 col-md-offset-3">
         <h3>
             ${last-login-title}
         </h3>

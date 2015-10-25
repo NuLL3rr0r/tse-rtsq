@@ -85,7 +85,6 @@ private:
     CgiEnv *m_cgiEnv;
 
 public:
-
     static std::string CStrToStr(const char *cstr);
 
     explicit Impl(CgiEnv *cgiEnv);

@@ -1,4 +1,4 @@
-<div class="text-center">
+<div class="dashboard-contents text-center">
     <div class="text-center">
         <h3>${welcome-message}</h3>
     </div>
