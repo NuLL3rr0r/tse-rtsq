@@ -70,7 +70,7 @@
 
 
 /*
-    DASHBOARD - START
+    DASHBOARD MENU - START
 */
 
 .nav-side-menu {
@@ -217,6 +217,11 @@ body {
     padding: 0;
 }
 
+/*
+    DASHBOARD MENU - END
+*/
+
+
 .dashboard-contents {
     font-family: 'Bitstream Vera Sans', arial, helvetica, sans-serif;
     font-size: 11px;
@@ -228,7 +233,7 @@ body {
 }
 
 @media (min-width: 768px) {
-    .dashboard-contents {
+    .dashboard-contents, .change-password {
         margin-top: 75px;
     }
 }
@@ -237,7 +242,15 @@ body {
     padding: 0.75em;
 }
 
-/*
-    DASHBOARD - END
-*/
+.change-password {
+    letter-spacing: 1px;
+
+    .form-group {
+        padding: 16px 0 !important;
+    }
+
+    button {
+        margin: 12px;
+    }
+}
 

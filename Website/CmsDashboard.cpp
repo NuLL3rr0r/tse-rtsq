@@ -33,12 +33,12 @@
  */
 
 
+#include <boost/exception/diagnostic_information.hpp>
+#include <boost/format.hpp>
 #include <Wt/WString>
 #include <Wt/WTemplate>
 #include <Wt/WText>
 #include <Wt/WWidget>
-#include <boost/exception/diagnostic_information.hpp>
-#include <boost/format.hpp>
 #include <CoreLib/FileSystem.hpp>
 #include <CoreLib/Log.hpp>
 #include "CgiEnv.hpp"
