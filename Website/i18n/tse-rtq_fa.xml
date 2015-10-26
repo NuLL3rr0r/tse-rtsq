@@ -61,6 +61,14 @@
     <message id="cms-change-password-invalid-pwd-error">کلمه عبور فعلی نامعتبر می باشد!</message>
     <message id="cms-change-password-same-pwd-error">کلمه عبور جدید بایستی با کلمه عبور فعلی متفاوت باشد!</message>
     <message id="cms-change-password-confirm-pwd-error">لطفا کلمه عبور جدید را تائید نمائید!</message>
+    <message id="cms-change-email-page-title">تغییر پست الکترونیکی مدیر سیستم</message>
+    <message id="cms-change-email-mailbox">پست الکترونیکی</message>
+    <message id="cms-change-email-mailbox-placeholder">آدرس پست الکترونیکی</message>
+    <message id="cms-change-email-password">کلمه عبور</message>
+    <message id="cms-change-email-password-placeholder">کلمه عبور</message>
+    <message id="cms-change-email-change-mailbox">اعمال تغییرات</message>
+    <message id="cms-change-email-success-message">آدرس پست الکترونیکی با موفقیت تغییر یافت.</message>
+    <message id="cms-change-email-invalid-pwd-error">کلمه عبور نامعتبر می باشد!</message>
     <message id="system-monitor-cpu-percents">CPU Percents</message>
     <message id="system-monitor-cpu-percents-user">User</message>
     <message id="system-monitor-cpu-percents-kernel">Kernel</message>

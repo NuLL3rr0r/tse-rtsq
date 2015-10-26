@@ -61,6 +61,14 @@
     <message id="cms-change-password-invalid-pwd-error">Invalid password!</message>
     <message id="cms-change-password-same-pwd-error">Your new password must be different from your current password!</message>
     <message id="cms-change-password-confirm-pwd-error">Please confirm the new password!</message>
+    <message id="cms-change-email-page-title">Change Email</message>
+    <message id="cms-change-email-mailbox">Email</message>
+    <message id="cms-change-email-mailbox-placeholder">Your email address</message>
+    <message id="cms-change-email-password">Password</message>
+    <message id="cms-change-email-password-placeholder">Your password</message>
+    <message id="cms-change-email-change-mailbox">Change Email</message>
+    <message id="cms-change-email-success-message">Email changed successfully.</message>
+    <message id="cms-change-email-invalid-pwd-error">Invalid password!</message>
     <message id="system-monitor-cpu-percents">CPU Percents</message>
     <message id="system-monitor-cpu-percents-user">User</message>
     <message id="system-monitor-cpu-percents-kernel">Kernel</message>
