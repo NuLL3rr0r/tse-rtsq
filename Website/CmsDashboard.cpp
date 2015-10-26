@@ -76,7 +76,6 @@ CmsDashboard::CmsDashboard(CgiRoot *cgi) :
 
 WWidget *CmsDashboard::Layout()
 {
-    LOG_DEBUG(11111111111);
     Div *container = new Div("CmsDashboard", "container");
 
     try {
