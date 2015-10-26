@@ -238,6 +238,8 @@ void CmsChangePassword::Impl::TryPasswordChange()
         guard.commit();
 
         m_parent->HtmlError(tr("cms-change-password-success-message"), ChangePasswordMessageArea);
+
+        return;
     }
 
     catch (boost::exception &ex) {
