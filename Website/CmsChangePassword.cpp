@@ -153,6 +153,8 @@ WWidget *CmsChangePassword::Layout()
             m_pimpl->NewPasswordLineEdit->enterPressed().connect(m_pimpl.get(), &CmsChangePassword::Impl::TryPasswordChange);
             m_pimpl->ConfirmPasswordLineEdit->enterPressed().connect(m_pimpl.get(), &CmsChangePassword::Impl::TryPasswordChange);
             changePasswordPushButton->clicked().connect(m_pimpl.get(), &CmsChangePassword::Impl::TryPasswordChange);
+
+            m_pimpl->CurrentPasswordLineEdit->setFocus();
         }
     }
 
@@ -225,15 +227,15 @@ void CmsChangePassword::Impl::TryPasswordChange()
         Pool::Crypto()->Hash(NewPasswordLineEdit->text().toUTF8(), encryptedPwd);
         Pool::Crypto()->Encrypt(encryptedPwd, encryptedPwd);
 
-        CurrentPasswordLineEdit->setText("");
-        NewPasswordLineEdit->setText("");
-        ConfirmPasswordLineEdit->setText("");
-        CurrentPasswordLineEdit->setFocus();
-
         Pool::Database()->Update("ROOT",
                                  "username", m_parent->m_cgiEnv->SignedInUser.Username,
                                  "pwd=?", 1,
                                  encryptedPwd.c_str());
+
+        CurrentPasswordLineEdit->setText("");
+        NewPasswordLineEdit->setText("");
+        ConfirmPasswordLineEdit->setText("");
+        CurrentPasswordLineEdit->setFocus();
 
         guard.commit();
 
