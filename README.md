@@ -373,15 +373,15 @@ Nginx
 
 ## Sreenshots
 
-![Alt text](/Screenshots/admin_login.png?raw=true "Admin Login")
-![Alt text](/Screenshots/admin-login-resonsive.png?raw=true "Admin Login (Responsive)")
-![Alt text](/Screenshots/admin-login-recover-password-fa.png?raw=true "Farsi Admin Login, Recover Password")
+![Admin Login](/Screenshots/admin_login.png?raw=true "Admin Login")
+![Admin Login (Responsive)](/Screenshots/admin-login-resonsive.png?raw=true "Admin Login (Responsive)")
+![Farsi Admin Login, Recover Password](/Screenshots/admin-login-recover-password-fa.png?raw=true "Farsi Admin Login, Recover Password")
 
-![Alt text](/Screenshots/cms-system-monitor-1.png?raw=true "System Monitor")
+![System Monitor](/Screenshots/cms-system-monitor-1.png?raw=true "System Monitor")
 
-![Alt text](/Screenshots/cms-system-monitor-2.png?raw=true "System Monitor")
+![System Monitor](/Screenshots/cms-system-monitor-2.png?raw=true "System Monitor")
 
-![Alt text](/Screenshots/cms-system-monitor-fa.png?raw=true "Farsi System Monitor")
+![Farsi System Monitor](/Screenshots/cms-system-monitor-fa.png?raw=true "Farsi System Monitor")
 
 More screenshots to come, as it makes progress.
 
