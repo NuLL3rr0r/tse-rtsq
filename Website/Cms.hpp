@@ -53,7 +53,7 @@ public:
     explicit Cms(CgiRoot *cgiRoot);
 
 private:
-    Wt::WWidget *Layout();
+    Wt::WWidget *Layout() override;
 };
 
 

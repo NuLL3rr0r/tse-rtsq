@@ -54,7 +54,7 @@ public:
     virtual ~Home();
 
 private:
-    Wt::WWidget *Layout();
+    Wt::WWidget *Layout() override;
 };
 
 

@@ -53,7 +53,7 @@ public:
     explicit CmsPageManager(CgiRoot *cgiRoot);
 
 private:
-    Wt::WWidget *Layout();
+    Wt::WWidget *Layout() override;
 };
 
 

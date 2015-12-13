@@ -54,7 +54,7 @@ public:
     virtual ~PublicApiResource();
 
 public:
-    virtual void handleRequest(const Wt::Http::Request &request, Wt::Http::Response &response);
+    virtual void handleRequest(const Wt::Http::Request &request, Wt::Http::Response &response) override;
 };
 
 

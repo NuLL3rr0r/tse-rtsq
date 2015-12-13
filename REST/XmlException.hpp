@@ -51,7 +51,7 @@ public:
     explicit XmlException(const std::wstring &message);
 
 public:
-    virtual const wchar_t *What() const;
+    virtual const wchar_t *What() const override;
 };
 
 

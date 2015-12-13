@@ -58,7 +58,7 @@ public:
     void Resume();
 
 private:
-    Wt::WWidget *Layout();
+    Wt::WWidget *Layout() override;
 };
 
 

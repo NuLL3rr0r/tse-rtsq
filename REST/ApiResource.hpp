@@ -59,7 +59,7 @@ public:
     virtual ~ApiResource() = 0;
 
 public:
-    virtual void handleRequest(const Wt::Http::Request &request, Wt::Http::Response &response) = 0;
+    virtual void handleRequest(const Wt::Http::Request &request, Wt::Http::Response &response) override = 0;
 
 protected:
     std::wstring GetHttpStatus(const CoreLib::HttpStatus::HttpStatusCode &code) const;
