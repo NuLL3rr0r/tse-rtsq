@@ -23,6 +23,12 @@ THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 !! This is a work in progress and is not even an MVP yet !!
 
+__Note__: An older but fully functional version of this program can be found on one of the following URLs:
+
+https://gitlab.com/NuLL3rr0r/kargozaar.com
+
+https://github.com/NuLL3rr0r/kargozaar.com
+
 
 ## Documentation
 
