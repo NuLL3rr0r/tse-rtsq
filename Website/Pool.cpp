@@ -42,7 +42,6 @@
 #include <CoreLib/make_unique.hpp>
 #include <CoreLib/Log.hpp>
 #include "Pool.hpp"
-#include "Captcha.hpp"
 
 using namespace std;
 using namespace Website;
@@ -68,31 +67,15 @@ std::unique_ptr<Pool::Impl> Pool::s_pimpl = std::make_unique<Pool::Impl>();
 const int &Pool::StorageStruct::LanguageCookieLifespan() const
 {
     // 365 Days * 24 Hours * 60 Minutes * 60 Seconds = Number of Days in Seconds
-    static int duration = 365 * 24 * 60 * 60;
-    return duration;
-}
-
-const std::string &Pool::StorageStruct::SkeletonKey() const
-{
-    static string skeletonKey;
-    if (skeletonKey == "") {
-        const unsigned char SKELETON_KEY[] = { 0x60, 0x21, 0x40, 0x23, 0x24, 0x24, 0x23, 0x40, 0x21, 0x7e, 0x2d, 0x5f, 0x25, 0x5e, 0x2f, 0x2e, 0x3f };
-        Crypto()->Hash(
-                    CoreLib::Crypto::ByteArrayToString(
-                        SKELETON_KEY, sizeof(SKELETON_KEY)),
-                    skeletonKey);
-        Crypto()->Encrypt(skeletonKey, skeletonKey);
-    }
-    return skeletonKey;
+    static constexpr int DURATION = 365 * 24 * 60 * 60;
+    return DURATION;
 }
 
 const std::string &Pool::StorageStruct::RootUsername() const
 {
     static string rootUsername;
     if (rootUsername == "") {
-        // root
-        const unsigned char ROOT_USERNAME[] = { 0x72, 0x6f, 0x6f, 0x74 };
-        rootUsername = CoreLib::Crypto::ByteArrayToString(ROOT_USERNAME, sizeof(ROOT_USERNAME));
+        rootUsername = CoreLib::Crypto::HexStringToString(ROOT_USERNAME);
     }
     return rootUsername;
 }
@@ -101,11 +84,8 @@ const std::string &Pool::StorageStruct::RootInitialPassword() const
 {
     static string rootInitialPassowrd;
     if (rootInitialPassowrd == "") {
-        // `!d3Fault-/.?
-        const unsigned char ROOT_INITIAL_PASSWORD[] = { 0x60, 0x21, 0x64, 0x33, 0x46, 0x61, 0x75, 0x6c, 0x74, 0x2d, 0x2f, 0x2e, 0x3f };
         CoreLib::Crypto::Hash(
-                    CoreLib::Crypto::ByteArrayToString(
-                        ROOT_INITIAL_PASSWORD, sizeof(ROOT_INITIAL_PASSWORD)),
+                    CoreLib::Crypto::HexStringToString(ROOT_INITIAL_PASSWORD),
                     rootInitialPassowrd);
         Crypto()->Encrypt(rootInitialPassowrd, rootInitialPassowrd);
     }
@@ -116,9 +96,7 @@ const std::string &Pool::StorageStruct::RootInitialEmail() const
 {
     static string rootInitialEmail;
     if (rootInitialEmail == "") {
-        // no-reply@babaei.net
-        const unsigned char ROOT_INITIAL_EMAIL[] = { 0x6e, 0x6f, 0x2d, 0x72, 0x65, 0x70, 0x6c, 0x79, 0x40, 0x62, 0x61, 0x62, 0x61, 0x65, 0x69, 0x2e, 0x6e, 0x65, 0x74 };
-        rootInitialEmail = CoreLib::Crypto::ByteArrayToString(ROOT_INITIAL_EMAIL, sizeof(ROOT_INITIAL_EMAIL));
+        rootInitialEmail= CoreLib::Crypto::HexStringToString(ROOT_INITIAL_EMAIL);
     }
     return rootInitialEmail;
 }
@@ -126,8 +104,8 @@ const std::string &Pool::StorageStruct::RootInitialEmail() const
 const int &Pool::StorageStruct::RootSessionLifespan() const
 {
     // 7 Days * 24 Hours * 60 Minutes * 60 Seconds = Number of Days in Seconds
-    static int duration = 7 * 24 * 60 * 60;
-    return duration;
+    static constexpr int DURATION = 7 * 24 * 60 * 60;
+    return DURATION;
 }
 
 const std::string &Pool::StorageStruct::RegexEmail() const
@@ -138,32 +116,32 @@ const std::string &Pool::StorageStruct::RegexEmail() const
 
 const int &Pool::StorageStruct::MinRootUsernameLength() const
 {
-    static int len = 4;
-    return len;
+    static constexpr int LENGTH = 4;
+    return LENGTH;
 }
 
 const int &Pool::StorageStruct::MinUsernameLength() const
 {
-    static int len = 6;
-    return len;
+    static constexpr int LENGTH = 6;
+    return LENGTH;
 }
 
 const int &Pool::StorageStruct::MaxUsernameLength() const
 {
-    static int len = 16;
-    return len;
+    static constexpr int LENGTH = 16;
+    return LENGTH;
 }
 
 const int &Pool::StorageStruct::MinPasswordLength() const
 {
-    static int len = 8;
-    return len;
+    static constexpr int LENGTH = 8;
+    return LENGTH;
 }
 
 const int &Pool::StorageStruct::MaxPasswordLength() const
 {
-    static int len = 24;
-    return len;
+    static constexpr int LENGTH = 24;
+    return LENGTH;
 }
 
 Pool::StorageStruct *Pool::Storage()
@@ -184,23 +162,12 @@ CoreLib::Crypto *Pool::Crypto()
     (void)lock;
 
     if (s_pimpl->CryptoInstance == nullptr) {
-        // Use this nice HEX/ASCII converter and your editor's replace dialog,
-        // to create your own Key and IV.
-        // http://www.dolcevie.com/js/converter.html
-        // To generate a random password: https://strongpasswordgenerator.com/
-
-        // MR573J29xA76+EwF
-        static constexpr CoreLib::Crypto::Byte_t KEY[] = {
-            0x4d, 0x52, 0x35, 0x37, 0x33, 0x4a, 0x32, 0x39, 0x78, 0x41, 0x37, 0x36, 0x2b, 0x45, 0x77, 0x46
-        };
-
-        // 69HdAh524zuU=5kt
-        static constexpr CoreLib::Crypto::Byte_t IV[] = {
-            0x36, 0x39, 0x48, 0x64, 0x41, 0x68, 0x35, 0x32, 0x34, 0x7a, 0x75, 0x55, 0x3d, 0x35, 0x6b, 0x74
-        };
+        static const string KEY = CoreLib::Crypto::HexStringToString(CRYPTO_KEY);
+        static const string IV = CoreLib::Crypto::HexStringToString(CRYPTO_IV);
 
         s_pimpl->CryptoInstance =
-                std::make_unique<CoreLib::Crypto>(KEY, sizeof(KEY), IV, sizeof(IV));
+                std::make_unique<CoreLib::Crypto>(reinterpret_cast<const CoreLib::Crypto::Byte_t *>(KEY.c_str()), KEY.size(),
+                                                  reinterpret_cast<const CoreLib::Crypto::Byte_t *>(IV.c_str()), IV.size());
     }
 
     return s_pimpl->CryptoInstance.get();

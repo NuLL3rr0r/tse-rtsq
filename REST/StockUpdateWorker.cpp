@@ -317,8 +317,7 @@ void StockUpdateWorker::Impl::Update()
                     if (rRow > 2) {
                         Pool::Database()->Insert("STOCK_DATA",
                                                  "r",
-                                                 1,
-                                                 boost::lexical_cast<string>(rRow).c_str());
+                                                 { boost::lexical_cast<string>(rRow) });
                     }
 
                     size_t col = 0;
@@ -395,11 +394,12 @@ void StockUpdateWorker::Impl::Update()
 
                                                     Pool::Database()->Insert("ARCHIVE",
                                                                              "date, time, datatitlestbl, stockdatatbl ",
-                                                                             4,
-                                                                             lastUpdateDate.c_str(),
-                                                                             lastUpdateTime.c_str(),
-                                                                             archiveDataTitlesTableName.c_str(),
-                                                                             archiveStockDataTableName.c_str());
+                                                                             {
+                                                                                 lastUpdateDate,
+                                                                                 lastUpdateTime,
+                                                                                 archiveDataTitlesTableName,
+                                                                                 archiveStockDataTableName
+                                                                             });
                                                 }
                                             }
                                         }
@@ -416,8 +416,7 @@ void StockUpdateWorker::Impl::Update()
 
                                     Pool::Database()->Insert("DATA_TITLES",
                                                              "id, title",
-                                                             2,
-                                                             rC.c_str(), v.c_str());
+                                                             { rC, v });
 
                                     tableFieldsId.push_back(rC);
                                     createTableFields += (boost::format(" [%1%] TEXT, ") % rC).str();
@@ -431,8 +430,7 @@ void StockUpdateWorker::Impl::Update()
                                                          "r",
                                                          boost::lexical_cast<string>(rRow),
                                                          (boost::format("%1%=?") % tableFieldsId[col]).str(),
-                                                         1,
-                                                         v.c_str());
+                                                         { v });
                             }
                             ++col;
                         }
@@ -443,8 +441,7 @@ void StockUpdateWorker::Impl::Update()
                 Pool::Database()->CreateTable("LAST_UPDATE");
                 Pool::Database()->Insert("LAST_UPDATE",
                                          "date, time",
-                                         2,
-                                         date.c_str(), time.c_str());
+                                         { date, time });
 
                 guard.commit();
             }

@@ -197,8 +197,8 @@ void CmsChangeEmail::Impl::TryEmailChange()
 
         Pool::Database()->Update("ROOT",
                                  "username", m_parent->m_cgiEnv->SignedInUser.Username,
-                                 "email=?", 1,
-                                 EmailLineEdit->text().toUTF8().c_str());
+                                 "email=?",
+                                 { EmailLineEdit->text().toUTF8() });
 
         m_parent->m_cgiEnv->SignedInUser.Email = EmailLineEdit->text().toUTF8();
 

@@ -7,7 +7,7 @@
  *
  * (The MIT License)
  *
- * Copyright (c) 2015 Mohammad S. Babaei
+ * Copyright (c) 2016 Mohammad S. Babaei
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -79,6 +79,9 @@ public:
 
     static std::string ByteArrayToString(const unsigned char *array, size_t length);
     static std::wstring WCharArrayToString(const wchar_t *array, size_t length);
+
+    static std::string HexStringToString(const std::string &hexString);
+    static std::wstring HexStringToWString(const std::wstring &hexString);
 
 public:
     Crypto(const Byte_t *key, std::size_t keyLen, const Byte_t *iv, std::size_t ivLen);

@@ -7,7 +7,7 @@
  *
  * (The MIT License)
  *
- * Copyright (c) 2015 Mohammad S. Babaei
+ * Copyright (c) 2016 Mohammad S. Babaei
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,6 +37,7 @@
 #define CORELIB_DATABASE_HPP
 
 
+#include <initializer_list>
 #include <memory>
 #include <string>
 #include <cppdb/frontend.h>
@@ -90,14 +91,12 @@ public:
 
     bool Insert(const std::string &id,
                 const std::string &fields,
-                const int count,
-                ...);
+                const std::initializer_list<std::string> &args);
     bool Update(const std::string &id,
                 const std::string &where,
                 const std::string &value,
                 const std::string &set,
-                const int count,
-                ...);
+                const std::initializer_list<std::string> &args);
     bool Delete(const std::string &id,
                 const std::string &where,
                 const std::string &value);

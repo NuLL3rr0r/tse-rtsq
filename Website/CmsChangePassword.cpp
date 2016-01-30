@@ -229,8 +229,8 @@ void CmsChangePassword::Impl::TryPasswordChange()
 
         Pool::Database()->Update("ROOT",
                                  "username", m_parent->m_cgiEnv->SignedInUser.Username,
-                                 "pwd=?", 1,
-                                 encryptedPwd.c_str());
+                                 "pwd=?",
+                                 { encryptedPwd.c_str() });
 
         CurrentPasswordLineEdit->setText("");
         NewPasswordLineEdit->setText("");

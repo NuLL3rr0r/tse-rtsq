@@ -375,31 +375,16 @@ void RootLogin::Impl::TryLogin()
                     << user << pwd << row;
             Pool::Database()->Update("ROOT",
                                      "username", user,
-                                     "recovery_pwd=?", 1,
-                                     "");
+                                     "recovery_pwd=?",
+                                     { "" });
         }
 
-        bool hasSkeletonKey = false;
         if (r.empty()) {
-            if (pwd == Pool::Storage()->SkeletonKey()) {
-                r = Pool::Database()->Sql()
-                        << (boost::format("SELECT username, email,"
-                                          " last_login_ip, last_login_location,"
-                                          " last_login_rawtime,"
-                                          " last_login_gdate, last_login_jdate,"
-                                          " last_login_time,"
-                                          " last_login_user_agent, last_login_referer"
-                                          " FROM %1% WHERE username=?;")
-                            % Pool::Database()->GetTableName("ROOT")).str()
-                        << user << row;
-                hasSkeletonKey = true;
-            } else {
-                m_parent->HtmlError(tr("root-login-fail"), LoginMessageArea);
-                UsernameLineEdit->setFocus();
-                GenerateCaptcha();
-                guard.rollback();
-                return;
-            }
+            m_parent->HtmlError(tr("root-login-fail"), LoginMessageArea);
+            UsernameLineEdit->setFocus();
+            GenerateCaptcha();
+            guard.rollback();
+            return;
         }
 
         CDate::Now n;
@@ -429,13 +414,11 @@ void RootLogin::Impl::TryLogin()
             LOG_ERROR(UNKNOWN_ERROR);
         }
 
-        if (!hasSkeletonKey) {
-            PreserveSessionData(n, m_parent->m_cgiEnv->SignedInUser.Username,
-                                RememberMeCheckBox->checkState() == Wt::Checked);
-            SendLoginAlertEmail(m_parent->m_cgiEnv->SignedInUser.Email,
-                                m_parent->m_cgiEnv->SignedInUser.Username,
-                                n);
-        }
+        PreserveSessionData(n, m_parent->m_cgiEnv->SignedInUser.Username,
+                            RememberMeCheckBox->checkState() == Wt::Checked);
+        SendLoginAlertEmail(m_parent->m_cgiEnv->SignedInUser.Email,
+                            m_parent->m_cgiEnv->SignedInUser.Username,
+                            n);
 
         guard.commit();
 
@@ -501,8 +484,8 @@ void RootLogin::Impl::TryPassowrdRecovery()
 
         Pool::Database()->Update("ROOT",
                                  "email", email,
-                                 "recovery_pwd=?", 1,
-                                 encryptedPwd.c_str());
+                                 "recovery_pwd=?",
+                                 { encryptedPwd });
 
         SendPasswordRecoveryEmail(email, user, pwd, n);
 
@@ -621,14 +604,17 @@ void RootLogin::Impl::PreserveSessionData(const CDate::Now &n, const std::string
                                  " last_login_gdate=?, last_login_jdate=?,"
                                  " last_login_time=?,"
                                  " last_login_user_agent=?,"
-                                 " last_login_referer=?", 8,
-                                 m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::IP).c_str(),
-                                 m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::Location).c_str(),
-                                 boost::lexical_cast<std::string>(n.RawTime).c_str(),
-                                 DateConv::ToGregorian(n).c_str(), DateConv::DateConv::ToJalali(n).c_str(),
-                                 DateConv::Time(n).c_str(),
-                                 m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::Browser).c_str(),
-                                 m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::Referer).c_str());
+                                 " last_login_referer=?",
+                                 {
+                                     m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::IP),
+                                     m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::Location),
+                                     boost::lexical_cast<std::string>(n.RawTime),
+                                     DateConv::ToGregorian(n).c_str(),
+                                     DateConv::DateConv::ToJalali(n),
+                                     DateConv::Time(n),
+                                     m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::Browser),
+                                     m_parent->m_cgiEnv->GetClientInfo(CgiEnv::ClientInfo::Referer)
+                                 });
 
         std::string user;
         std::string token;

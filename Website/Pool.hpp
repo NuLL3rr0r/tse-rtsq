@@ -45,7 +45,6 @@ class Database;
 }
 
 namespace Website {
-class Captcha;
 class Pool;
 }
 
@@ -56,7 +55,6 @@ public:
     {
         const int &LanguageCookieLifespan() const;
 
-        const std::string &SkeletonKey() const;
         const std::string &RootUsername() const;
         const std::string &RootInitialPassword() const;
         const std::string &RootInitialEmail() const;

@@ -7,7 +7,7 @@
  *
  * (The MIT License)
  *
- * Copyright (c) 2015 Mohammad S. Babaei
+ * Copyright (c) 2016 Mohammad S. Babaei
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -38,6 +38,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <utility>
+#include <boost/algorithm/string.hpp>
 #if defined ( _WIN32 )
 #include <windows.h>
 //#include <cryptopp/dll.h>     // msvc-shared only
@@ -286,6 +287,34 @@ std::wstring Crypto::WCharArrayToString(const wchar_t *array, size_t length)
 
     for (size_t i = 0; i < length; ++i) {
         woss << array[i];
+    }
+
+    return woss.str();
+}
+
+std::string Crypto::HexStringToString(const std::string &hexString)
+{
+    std::vector<std::string> bytes;
+    boost::algorithm::iter_split(bytes, hexString, boost::algorithm::first_finder(":"));
+
+    std::ostringstream oss;
+
+    for (std::vector<std::string>::iterator it = bytes.begin(); it != bytes.end(); ++it) {
+        oss << strtol(it->c_str(), NULL, 16);
+    }
+
+    return oss.str();
+}
+
+std::wstring Crypto::HexStringToWString(const std::wstring &hexString)
+{
+    std::vector<std::wstring> bytes;
+    boost::algorithm::iter_split(bytes, hexString, boost::algorithm::first_finder(":"));
+
+    std::wostringstream woss;
+
+    for (std::vector<std::wstring>::iterator it = bytes.begin(); it != bytes.end(); ++it) {
+        woss << wcstol(it->c_str(), NULL, 16);
     }
 
     return woss.str();

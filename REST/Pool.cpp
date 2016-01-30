@@ -216,22 +216,12 @@ CoreLib::Crypto *Pool::ClientToken()
     (void)lock;
 
     if (s_pimpl->ClientTokenInstance == nullptr) {
-        // Use this nice HEX/ASCII converter and your editor's replace dialog,
-        // to create your own Key and IV.
-        // http://www.dolcevie.com/js/converter.html
-        // To generate a random password: https://strongpasswordgenerator.com/
+        static const string KEY = CoreLib::Crypto::HexStringToString(CLIENT_TOKEN_CRYPTO_KEY);
+        static const string IV = CoreLib::Crypto::HexStringToString(CLIENT_TOKEN_CRYPTO_IV);
 
-        // +L;/2_w,{OT@3<?j
-        static constexpr CoreLib::Crypto::Byte_t KEY[] = {
-            0x2b, 0x4c, 0x3b, 0x2f, 0x32, 0x5f, 0x77, 0x2c, 0x7b, 0x4f, 0x54, 0x40, 0x33, 0x3c, 0x3f, 0x6a
-        };
-
-        // oAA01sV1w53S[qjj
-        static constexpr CoreLib::Crypto::Byte_t IV[] = {
-            0x6f, 0x41, 0x41, 0x30, 0x31, 0x73, 0x56, 0x31, 0x77, 0x35, 0x33, 0x53, 0x5b, 0x71, 0x6a, 0x6a
-        };
-
-        s_pimpl->ClientTokenInstance = std::make_unique<CoreLib::Crypto>(KEY, sizeof(KEY), IV, sizeof(IV));
+        s_pimpl->ClientTokenInstance =
+                std::make_unique<CoreLib::Crypto>(reinterpret_cast<const CoreLib::Crypto::Byte_t *>(KEY.c_str()), KEY.size(),
+                                                  reinterpret_cast<const CoreLib::Crypto::Byte_t *>(IV.c_str()), IV.size());
     }
 
     return s_pimpl->ClientTokenInstance.get();
@@ -243,22 +233,12 @@ CoreLib::Crypto *Pool::ServerToken()
     (void)lock;
 
     if (s_pimpl->ServerTokenInstance == nullptr) {
-        // Use this nice HEX/ASCII converter and your editor's replace dialog,
-        // to create your own Key and IV.
-        // http://www.dolcevie.com/js/converter.html
-        // To generate a random password: https://strongpasswordgenerator.com/
+        static const string KEY = CoreLib::Crypto::HexStringToString(SERVER_TOKEN_CRYPTO_KEY);
+        static const string IV = CoreLib::Crypto::HexStringToString(SERVER_TOKEN_CRYPTO_IV);
 
-        // .2+;<\HwW{ ]<[[J
-        static constexpr CoreLib::Crypto::Byte_t KEY[] = {
-            0x2e, 0x32, 0x2b, 0x3b, 0x3c, 0x5c, 0x48, 0x77, 0x57, 0x7b, 0x20, 0x5d, 0x3c, 0x5b, 0x5b, 0x4a
-        };
-
-        // <z4_*D6![H=02B]b
-        static constexpr CoreLib::Crypto::Byte_t IV[] = {
-            0x3c, 0x7a, 0x34, 0x5f, 0x2a, 0x44, 0x36, 0x21, 0x5b, 0x48, 0x3d, 0x30, 0x32, 0x42, 0x5d, 0x62
-        };
-
-        s_pimpl->ServerTokenInstance = std::make_unique<CoreLib::Crypto>(KEY, sizeof(KEY), IV, sizeof(IV));
+        s_pimpl->ServerTokenInstance =
+                std::make_unique<CoreLib::Crypto>(reinterpret_cast<const CoreLib::Crypto::Byte_t *>(KEY.c_str()), KEY.size(),
+                                                  reinterpret_cast<const CoreLib::Crypto::Byte_t *>(IV.c_str()), IV.size());
     }
 
     return s_pimpl->ServerTokenInstance.get();

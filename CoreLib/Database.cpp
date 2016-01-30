@@ -7,7 +7,7 @@
  *
  * (The MIT License)
  *
- * Copyright (c) 2015 Mohammad S. Babaei
+ * Copyright (c) 2016 Mohammad S. Babaei
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -261,15 +261,11 @@ bool Database::RenameTable(const std::string &id, const std::string &newName)
 
 bool Database::Insert(const std::string &id,
                       const std::string &fields,
-                      const int count,
-                      ...)
+                      const std::initializer_list<std::string> &args)
 {
     try {
-        va_list args;
-        va_start(args, count);
-
         string ph;
-        for (int i = 0; i < count; ++i) {
+        for (size_t i = 0; i < args.size(); ++i) {
             if (i != 0)
                 ph += ", ";
             ph += "?";
@@ -283,11 +279,9 @@ bool Database::Insert(const std::string &id,
                                          + ph
                                          + ");";
 
-        for(int i = 0; i < count; ++i) {
-            stat.bind(va_arg(args, char*));
+        for(const auto &arg : args) {
+            stat.bind(arg);
         }
-
-        va_end(args);
 
         stat.exec();
 
@@ -305,13 +299,9 @@ bool Database::Update(const std::string &id,
                       const std::string &where,
                       const std::string &value,
                       const std::string &set,
-                      const int count,
-                      ...)
+                      const std::initializer_list<std::string> &args)
 {
     try {
-        va_list args;
-        va_start(args, count);
-
         statement stat = m_pimpl->Sql << "UPDATE ONLY \""
                                          + m_pimpl->TableNames[id]
                                          + "\" SET "
@@ -320,11 +310,9 @@ bool Database::Update(const std::string &id,
                                          + where
                                          + "=?;";
 
-        for(int i = 0; i < count; ++i) {
-            stat.bind(va_arg(args, char*));
+        for(const auto &arg : args) {
+            stat.bind(arg);
         }
-
-        va_end(args);
 
         stat.bind(value);
 

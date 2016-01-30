@@ -236,10 +236,12 @@ void InitializeDatabase()
                 << Website::Pool::Storage()->RootUsername() << cppdb::row;
 
         if (r.empty()) {
-            Website::Pool::Database()->Insert("ROOT", "username, email, pwd", 3,
-                                              Website::Pool::Storage()->RootUsername().c_str(),
-                                              Website::Pool::Storage()->RootInitialEmail().c_str(),
-                                              Website::Pool::Storage()->RootInitialPassword().c_str());
+            Website::Pool::Database()->Insert("ROOT", "username, email, pwd",
+                                              {
+                                              Website::Pool::Storage()->RootUsername(),
+                                              Website::Pool::Storage()->RootInitialEmail(),
+                                              Website::Pool::Storage()->RootInitialPassword()
+                                              });
 
             guard.commit();
         } else {
