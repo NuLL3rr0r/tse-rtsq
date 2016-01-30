@@ -45,7 +45,6 @@
 #include <CoreLib/Random.hpp>
 #include <CoreLib/System.hpp>
 #include "CgiEnv.hpp"
-#include "Div.hpp"
 #include "Cms.hpp"
 #include "CmsChangeEmail.hpp"
 #include "CmsChangePassword.hpp"
@@ -53,6 +52,7 @@
 #include "CmsDashboard.hpp"
 #include "CmsNews.hpp"
 #include "CmsPageManager.hpp"
+#include "Div.hpp"
 #include "Pool.hpp"
 #include "SysMon.hpp"
 
