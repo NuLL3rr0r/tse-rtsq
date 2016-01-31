@@ -306,7 +306,7 @@ IF ( BUILD_WEBSITE )
         )
 
         INSTALL ( DIRECTORY
-            "${GULP_DIR}/templates"
+            "${GULP_DIR}/output/templates"
             DESTINATION "${APP_ROOT_DIR}"
             FILE_PERMISSIONS
             OWNER_READ
