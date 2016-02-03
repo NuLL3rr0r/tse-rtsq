@@ -213,16 +213,16 @@ void InitializeDatabase()
 {
     try {
         Website::Pool::Database()->RegisterTable("ROOT", "root",
-                                                 " username VARCHAR(16) NOT NULL PRIMARY KEY, "
-                                                 " email VARCHAR(254) NOT NULL UNIQUE, "
-                                                 " last_login_ip VARCHAR(15), "
-                                                 " last_login_location VARCHAR(96), "
-                                                 " last_login_rawtime VARCHAR(19), "
-                                                 " last_login_gdate VARCHAR(10), "
-                                                 " last_login_jdate VARCHAR(10), "
-                                                 " last_login_time VARCHAR(10), "
-                                                 " last_login_user_agent VARCHAR(256), "
-                                                 " last_login_referer VARCHAR(2083), "
+                                                 " username TEXT NOT NULL PRIMARY KEY, "
+                                                 " email TEXT NOT NULL UNIQUE, "
+                                                 " last_login_ip TEXT, "
+                                                 " last_login_location TEXT, "
+                                                 " last_login_rawtime TEXT), "
+                                                 " last_login_gdate TEXT, "
+                                                 " last_login_jdate TEXT, "
+                                                 " last_login_time TEXT, "
+                                                 " last_login_user_agent TEXT, "
+                                                 " last_login_referer TEXT, "
                                                  " pwd TEXT NOT NULL, "
                                                  " recovery_pwd TEXT ");
         Website::Pool::Database()->Initialize();
