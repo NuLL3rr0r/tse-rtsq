@@ -7,7 +7,7 @@
  *
  * (The MIT License)
  *
- * Copyright (c) 2015 Mohammad S. Babaei
+ * Copyright (c) 2016 Mohammad S. Babaei
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -37,11 +37,11 @@
 #define CORELIB_RANDOM_HPP
 
 
-#include <memory>
 #include <string>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int_distribution.hpp>
-#include <boost/random/variate_generator.hpp>
+#include <boost/thread/mutex.hpp>
+#include <boost/thread/lock_guard.hpp>
 #include "System.hpp"
 
 namespace CoreLib {
@@ -68,7 +68,6 @@ public:
 
 private:
     struct Impl;
-    static std::unique_ptr<Impl> s_pimpl;
 
 public:
     static void Characters(const Character &type, const size_t length, std::string &out_chars);
@@ -77,11 +76,14 @@ public:
     template <typename Type>
     static Type Number(Type lowerBound, Type upperBound)
     {
-        boost::random::mt19937 generator;
-        generator.seed(static_cast<const unsigned int>(System::RandSeed()));
+        boost::lock_guard<boost::mutex> guard(GetMutex());
         boost::random::uniform_int_distribution<> dist(lowerBound, upperBound);
-        return dist(generator);
+        return dist(GetEngine());
     }
+
+private:
+    static boost::random::mt19937 &GetEngine();
+    static boost::mutex &GetMutex();
 };
 
 

@@ -49,7 +49,7 @@ class StockUpdateWorker;
 class Rest::StockUpdateWorker
 {
 public:
-    typedef boost::int_least64_t Interval_t;
+    typedef boost::int_least64_t Interval;
 
 private:
     struct Impl;
@@ -58,7 +58,7 @@ private:
 public:
     StockUpdateWorker();
     StockUpdateWorker(const std::string &sourceURL,
-                      const StockUpdateWorker::Interval_t interval,
+                      const Interval interval,
                       bool startImmediately = false);
     ~StockUpdateWorker();
 
@@ -67,7 +67,7 @@ public:
     boost::int_least64_t GetInterval();
 
     void SetSourceURL(const std::string &sourceFile);
-    void SetInterval(boost::int_least64_t interval);
+    void SetInterval(Interval interval);
 
 public:
     bool IsRunning();

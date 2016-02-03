@@ -53,7 +53,7 @@ class CgiRoot;
 class Website::CgiRoot : public Wt::WApplication
 {
 public:
-    typedef std::shared_ptr<Website::CgiEnv> CgiEnvPtr_t;
+    typedef std::shared_ptr<Website::CgiEnv> CgiEnv_ptr;
 
 private:
     struct Impl;
@@ -61,7 +61,7 @@ private:
 
 public:
     Wt::WContainerWidget *HtmlRoot;
-    CgiEnvPtr_t CgiEnvInstance;
+    CgiEnv_ptr CgiEnvInstance;
 
 public:
     static Wt::WApplication *CreateApplication(const Wt::WEnvironment &env);

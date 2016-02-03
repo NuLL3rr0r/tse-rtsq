@@ -70,7 +70,7 @@ struct StockUpdateWorker::Impl
     bool StartImmediately;
 
     std::string SourceURL;
-    Interval_t Interval;
+    StockUpdateWorker::Interval Interval;
 
     thread_ptr WorkerThread;
     std::mutex WorkerMutex;
@@ -91,7 +91,7 @@ StockUpdateWorker::StockUpdateWorker() :
 }
 
 StockUpdateWorker::StockUpdateWorker(const std::string &sourceURL,
-                                     const StockUpdateWorker::Interval_t interval,
+                                     const Interval interval,
                                      bool startImmediately) :
     m_pimpl(std::make_unique<StockUpdateWorker::Impl>())
 {
@@ -132,7 +132,7 @@ void StockUpdateWorker::SetSourceURL(const std::string &sourceFile)
     m_pimpl->SourceURL = sourceFile;
 }
 
-void StockUpdateWorker::SetInterval(boost::int_least64_t interval)
+void StockUpdateWorker::SetInterval(Interval interval)
 {
     std::lock_guard<std::mutex> lock(m_pimpl->WorkerMutex);
     (void)lock;

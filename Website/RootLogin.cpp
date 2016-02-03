@@ -272,7 +272,7 @@ WWidget *RootLogin::Layout()
         passwordValidator->setMandatory(true);
         m_pimpl->PasswordLineEdit->setValidator(passwordValidator);
 
-        m_pimpl->Captcha = new Service::Captcha();
+        m_pimpl->Captcha = new Website::Captcha();
         m_pimpl->CaptchaImage = m_pimpl->Captcha->Generate();
         m_pimpl->CaptchaImage->setAlternateText(tr("root-login-captcha-hint"));
 

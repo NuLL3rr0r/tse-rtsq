@@ -220,8 +220,8 @@ CoreLib::Crypto *Pool::ClientToken()
         static const string IV = CoreLib::Crypto::HexStringToString(CLIENT_TOKEN_CRYPTO_IV);
 
         s_pimpl->ClientTokenInstance =
-                std::make_unique<CoreLib::Crypto>(reinterpret_cast<const CoreLib::Crypto::Byte_t *>(KEY.c_str()), KEY.size(),
-                                                  reinterpret_cast<const CoreLib::Crypto::Byte_t *>(IV.c_str()), IV.size());
+                std::make_unique<CoreLib::Crypto>(reinterpret_cast<const CoreLib::Crypto::Byte *>(KEY.c_str()), KEY.size(),
+                                                  reinterpret_cast<const CoreLib::Crypto::Byte *>(IV.c_str()), IV.size());
     }
 
     return s_pimpl->ClientTokenInstance.get();
@@ -237,8 +237,8 @@ CoreLib::Crypto *Pool::ServerToken()
         static const string IV = CoreLib::Crypto::HexStringToString(SERVER_TOKEN_CRYPTO_IV);
 
         s_pimpl->ServerTokenInstance =
-                std::make_unique<CoreLib::Crypto>(reinterpret_cast<const CoreLib::Crypto::Byte_t *>(KEY.c_str()), KEY.size(),
-                                                  reinterpret_cast<const CoreLib::Crypto::Byte_t *>(IV.c_str()), IV.size());
+                std::make_unique<CoreLib::Crypto>(reinterpret_cast<const CoreLib::Crypto::Byte *>(KEY.c_str()), KEY.size(),
+                                                  reinterpret_cast<const CoreLib::Crypto::Byte *>(IV.c_str()), IV.size());
     }
 
     return s_pimpl->ServerTokenInstance.get();

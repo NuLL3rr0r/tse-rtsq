@@ -49,11 +49,9 @@ using namespace Rest;
 
 struct ServiceContract::Impl
 {
-    typedef std::multimap<std::wstring,
-    std::pair<std::wstring, std::size_t> >
-    Contracts_t;
+    typedef std::multimap<std::wstring, std::pair<std::wstring, std::size_t>> ContractsMultimap;
 
-    Contracts_t Contracts;
+    ContractsMultimap Contracts;
 };
 
 ServiceContract::ServiceContract() :
@@ -95,7 +93,7 @@ bool ServiceContract::Resolve(const std::wstring &uri, std::wstring &out_uriTemp
     out_uriTemplate.clear();
 
     if (!boost::ends_with(uri, "/")) {
-        for (Impl::Contracts_t::const_iterator it = m_pimpl->Contracts.begin();
+        for (Impl::ContractsMultimap::const_iterator it = m_pimpl->Contracts.begin();
              it != m_pimpl->Contracts.end(); ++it) {
             if (boost::starts_with(uri, it->first)) {
                 std::wstring args(uri.substr(it->first.size()));

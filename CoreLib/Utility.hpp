@@ -7,7 +7,7 @@
  *
  * (The MIT License)
  *
- * Copyright (c) 2015 Mohammad S. Babaei
+ * Copyright (c) 2016 Mohammad S. Babaei
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -59,8 +59,8 @@ public:
     template <typename _T>
     struct HashMapper
     {
-        typedef std::unordered_map<_T, std::string, Hasher<_T>> HashToString_t;
-        typedef std::unordered_map<std::string, _T> HashToEnumClass_t;
+        typedef std::unordered_map<_T, std::string, Hasher<_T>> HashToString;
+        typedef std::unordered_map<std::string, _T> HashToEnumClass;
     };
 
     static std::string CalculateSize(const std::size_t size);

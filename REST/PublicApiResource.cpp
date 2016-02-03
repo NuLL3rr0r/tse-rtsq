@@ -73,8 +73,8 @@ using namespace Rest;
 
 struct PublicApiResource::Impl
 {
-    typedef vector<vector<std::string> > Table_t;
-    typedef vector<std::string> Row_t;
+    typedef vector<vector<std::string>> Table;
+    typedef vector<std::string> Row;
 
     enum class OutputType : unsigned char {
         JSON,
@@ -87,7 +87,7 @@ struct PublicApiResource::Impl
 
     void GetDataTree(const OutputType &outputType,
                      const std::string &dateId, const std::string &time,
-                     const Row_t &titles, const Table_t &data,
+                     const Row &titles, const Table &data,
                      boost::property_tree::wptree &out_tree);
     void GetDataByDate(const OutputType &outputType,
                        const std::string &date, boost::property_tree::wptree &out_tree);
@@ -241,7 +241,7 @@ bool PublicApiResource::Impl::IsValidToken(const std::wstring &encryptedToken)
 
 void PublicApiResource::Impl::GetDataTree(const OutputType &outputType,
                                           const std::string &date, const std::string &time,
-                                          const Row_t &titles, const Table_t &data,
+                                          const Row &titles, const Table &data,
                                           boost::property_tree::wptree &out_tree)
 {
     out_tree.clear();
@@ -255,7 +255,7 @@ void PublicApiResource::Impl::GetDataTree(const OutputType &outputType,
     out_tree.put(L"StockMarket.time", WString(time).value());
 
     boost::property_tree::wptree titlesTree;
-    for (Row_t::const_iterator it = titles.begin(); it != titles.end(); ++it) {
+    for (Row::const_iterator it = titles.begin(); it != titles.end(); ++it) {
         boost::property_tree::wptree nameTree;
         nameTree.put(L"", WString(*it).value());
 
@@ -271,9 +271,9 @@ void PublicApiResource::Impl::GetDataTree(const OutputType &outputType,
     out_tree.add_child(L"StockMarket.titles", titlesTree);
 
     boost::property_tree::wptree dataTree;
-    for (Table_t::const_iterator it = data.begin(); it != data.end(); ++it) {
+    for (Table::const_iterator it = data.begin(); it != data.end(); ++it) {
         boost::property_tree::wptree rowTree;
-        for (Row_t::const_iterator rowIt = (*it).begin(); rowIt != (*it).end(); ++rowIt) {
+        for (Row::const_iterator rowIt = (*it).begin(); rowIt != (*it).end(); ++rowIt) {
             boost::property_tree::wptree colTree;
             colTree.put(L"", WString(*rowIt).value());
 
@@ -308,8 +308,8 @@ void PublicApiResource::Impl::GetDataByDate(const OutputType &outputType, const 
     std::string time;
     std::string dataTitlesTable;
     std::string stockDataTable;
-    Row_t titles;
-    Table_t data;
+    Row titles;
+    Table data;
 
     cppdb::transaction guard(Pool::Database()->Sql());
 
@@ -351,7 +351,7 @@ void PublicApiResource::Impl::GetDataByDate(const OutputType &outputType, const 
 
     size_t rowId = 0;
     while(r.next()) {
-        Row_t row;
+        Row row;
         data.push_back(row);
         for (int i = 0; i < r.cols(); ++i) {
             r >> value;
@@ -377,8 +377,8 @@ void PublicApiResource::Impl::GetLatestData(const OutputType &outputType,
 
     std::string date;
     std::string time;
-    Row_t titles;
-    Table_t data;
+    Row titles;
+    Table data;
 
     cppdb::transaction guard(Pool::Database()->Sql());
 
@@ -416,7 +416,7 @@ void PublicApiResource::Impl::GetLatestData(const OutputType &outputType,
 
     size_t rowId = 0;
     while(r.next()) {
-        Row_t row;
+        Row row;
         data.push_back(row);
         for (int i = 0; i < r.cols(); ++i) {
             r >> value;
