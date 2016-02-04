@@ -275,11 +275,11 @@ void CgiEnv::Impl::ExtractClientInfoDetail()
 {
     try {
         GeoIP *geoLiteCity;
-#if defined ( _FreeBSD__ )
-        if (IO::FileExists("/usr/local/share/GeoIP/GeoLiteCity.dat")) {
+#if defined ( __FreeBSD__ )
+        if (FileSystem::FileExists("/usr/local/share/GeoIP/GeoLiteCity.dat")) {
             geoLiteCity = GeoIP_open("/usr/local/share/GeoIP/GeoLiteCity.dat", GEOIP_STANDARD);
 #elif  defined ( __gnu_linux__ ) || defined ( __linux__ )
-        if (IO::FileExists("/usr/share/GeoIP/GeoLiteCity.dat")) {
+        if (FileSystem::FileExists("/usr/share/GeoIP/GeoLiteCity.dat")) {
             geoLiteCity = GeoIP_open("/usr/share/GeoIP/GeoLiteCity.dat", GEOIP_STANDARD);
 #else
         if (FileSystem::FileExists("/usr/local/share/GeoIP/GeoLiteCity.dat")) {
