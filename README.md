@@ -23,7 +23,7 @@ THE SOFTWARE IS PROVIDED ‘AS IS’, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR I
 
 !! This is a work in progress and is not even an MVP yet !!
 
-__Note__: An older but fully functional version of this program can be found on one of the following URLs:
+__Note__: An older but fully functional version of this program can be found on one of the following repositories:
 
 https://gitlab.com/NuLL3rr0r/kargozaar.com
 
@@ -71,13 +71,13 @@ __Note__: Between PostgreSQL, SQLite 3 and MariaDB / MySQL you should choose at 
 
 Although the core library of the project supports PostgreSQL and MariaDB / MySQL in addition to SQLite 3, the intention for all top-level projects like the REST API and Website is to work only on PostgreSQL. You may need to get your hands a bit dirty if you need PostgreSQL or MariaDB / MySQL support. Pull requests are very welcome due to my limited time. Right now the REST project` relies on SQLite 3 - which will change to PostgreSQL soon - and the frontend project relies on PostgreSQL as its database;
 
-sudo -u pgsql psql -d template1
-template1=# CREATE ROLE tse_rtsq_user LOGIN ENCRYPTED PASSWORD '${SECRET_PASSWORD}' NOINHERIT VALID UNTIL 'infinity';
-template1=# CREATE DATABASE tse_rtsq_db WITH ENCODING='UTF8' OWNER tse_rtsq_user;
-template1=# \q
-sudo -u pgsql -H psql -d tse_rtsq_db
-tse_rtsq_db=> \q
-sudo -u pgsql pg_dump tse_rtsq_db
+    sudo -u pgsql psql -d template1
+    template1=# CREATE ROLE tse_rtsq_user LOGIN ENCRYPTED PASSWORD '${SECRET_PASSWORD}' NOINHERIT VALID UNTIL 'infinity';
+    template1=# CREATE DATABASE tse_rtsq_db WITH ENCODING='UTF8' OWNER tse_rtsq_user;
+    template1=# \q
+    sudo -u pgsql -H psql -d tse_rtsq_db
+    tse_rtsq_db=> \q
+    sudo -u pgsql pg_dump tse_rtsq_db
 
 After creating the database, in the next step you have to modify ${PROJECT_ROOT}/definitions.cmake.
 
@@ -92,12 +92,13 @@ I developed this on a FreeBSD x64 machine and tested it on another FreeBSD x86 V
 You can build either using Ninja or traditional build systems such as BSD Make or GNU Make. It also supports Qt Creator as an IDE. To start building Qt Creator which supports CMake, Ninja and Make simply drag CMakeLists.txt - located in the root directory of the project - to Qt Creator's main window. Alternatively follow the following instructions if you want to build from command line:
 
 To build using Ninja:
-$ cd tse-rtsq
-$ mkdir build
-$ cd build
-$ sudo cmake -GNinja -DCMAKE_BUILD_TYPE=ClangNativeMaxSpeedRel -DAPP_ROOT_DIR=/srv/babaei.net/tse-rtsq ../
-$ ninja
-$ sudo ninja install
+
+    $ cd tse-rtsq
+    $ mkdir build
+    $ cd build
+    $ sudo cmake -GNinja -DCMAKE_BUILD_TYPE=ClangNativeMaxSpeedRel -DAPP_ROOT_DIR=/srv/babaei.net/tse-rtsq ../
+    $ ninja
+    $ sudo ninja install
 
 CMAKE_BUILD_TYPE possible values
 * None
@@ -118,18 +119,20 @@ __Note__: For other available options please build using CMake GUI.
 
 To build using either BSD Make or GNU Make:
 
-$ cd tse-rtsq
-$ mkdir build
-$ cd build
-$ sudo cmake -GNinja -DCMAKE_BUILD_TYPE=ClangNativeMaxSpeedRel -DAPP_ROOT_DIR=/srv/babaei.net/tse-rtsq ../
+    $ cd tse-rtsq
+    $ mkdir build
+    $ cd build
+    $ sudo cmake -GNinja -DCMAKE_BUILD_TYPE=ClangNativeMaxSpeedRel -DAPP_ROOT_DIR=/srv/babaei.net/tse-rtsq ../
 
 make -j<NUMBER_OF_CPU_CORES+1>, e.g.
-$ make -j9
-$ sudo make install
+
+    $ make -j9
+    $ sudo make install
 
 Or, if you are using GNU Make on *BSD operating systems:
-$ gmake -j9
-$ sudo gmake install
+
+    $ gmake -j9
+    $ sudo gmake install
 
 __Note__: In the ${PROJECT_ROOT} directory you can customize the build by modifying the following files:
 
